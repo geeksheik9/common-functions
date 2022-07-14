@@ -23,7 +23,7 @@ func Test_New_NoError(t *testing.T) {
 	envMap[port] = "8080"
 	envMap[logLevel] = "debug"
 	envMap[URLs] = "host1=https://localhost:8080,host2=https://localhost:8081"
-	envMap[databases] = "host1=mongodb://localhost:27017,host2=mongodb://localhost:27018"
+	envMap[databases] = "host1=mongoCollection1,host2=SQLTable1"
 	envMap[secretsPath] = "/tmp/secrets"
 	envMap[certPath] = "/tmp/cert.pem"
 
@@ -35,7 +35,7 @@ func Test_New_NoError(t *testing.T) {
 
 	c, _ := New(ca, envMap)
 
-	if c.Port != "8080" || c.LogLevel != "debug" || c.URLS["host1"] != "https://localhost:8080" || c.Databases["host2"] != "mongodb://localhost:27018" || c.SecretsPath != "/tmp/secrets" || c.CertPath != "/tmp/cert.pem" {
+	if c.Port != "8080" || c.LogLevel != "debug" || c.URLS["host1"] != "https://localhost:8080" || c.Databases["host2"] != "SQLTable1" || c.SecretsPath != "/tmp/secrets" || c.CertPath != "/tmp/cert.pem" {
 		t.Errorf("expected: %v\nreceived: %v", envMap, c)
 	}
 }
@@ -47,7 +47,7 @@ func Test_New_BindError(t *testing.T) {
 	envMap[port] = "8080"
 	envMap[logLevel] = "debug"
 	envMap[URLs] = "host1=https://localhost:8080,host2=https://localhost:8081"
-	envMap[databases] = "host1=mongodb://localhost:27017,host2=mongodb://localhost:27018"
+	envMap[databases] = "host1=mongoCollection1,host2=SQLTable1"
 	envMap[secretsPath] = "/tmp/secrets"
 	envMap[certPath] = "/tmp/cert.pem"
 
@@ -76,7 +76,7 @@ func Test_New_SetError(t *testing.T) {
 	envMap[port] = "8080"
 	envMap[logLevel] = "debug"
 	envMap[URLs] = "host1=https://localhost:8080,host2=https://localhost:8081"
-	envMap[databases] = "host1=mongodb://localhost:27017,host2=mongodb://localhost:27018"
+	envMap[databases] = "host1=mongoCollection1,host2=SQLTable1"
 	envMap[secretsPath] = "/tmp/secrets"
 	envMap[certPath] = "/tmp/cert.pem"
 

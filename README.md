@@ -31,4 +31,10 @@ Run the following command to use a local version of this module
 go mod edit -replace github.com/geeksheik9/common-functions=RELATIVE_PATH_TO_LOCAL_MODULE
 ```
 
+When done testing run the following command to return to hosted version
+
+```shel
+go mod edit -dropreplace github.com/geeksheik9/common-functions
+```
+
 
