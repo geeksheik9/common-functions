@@ -15,12 +15,18 @@ func New(ca models.ConfigAccessor, envMap map[string]string) (*models.Config, er
 		return nil, err
 	}
 
-	//url input should be stored in format key=value,key=value,...
-	urlArray := strings.Split(envMap[URLs], ",")
+	var urlArray []string
+	if _, ok := envMap[URLs]; ok {
+		//url input should be stored in format key=value,key=value,...
+		urlArray = strings.Split(envMap[URLs], ",")
+	}
 	urlMap := makeMap(urlArray)
 
-	//db input should be stored in format key=value,key=value,...
-	dbArray := strings.Split(envMap[databases], ",")
+	var dbArray []string
+	if _, ok := envMap[databases]; ok {
+		//db input should be stored in format key=value,key=value,...
+		dbArray = strings.Split(envMap[databases], ",")
+	}
 	dbMap := makeMap(dbArray)
 
 	config := &models.Config{
