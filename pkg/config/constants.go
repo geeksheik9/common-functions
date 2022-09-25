@@ -8,4 +8,5 @@ const (
 	certPath    = "CERT_PATH"
 	databases   = "DATABASES"
 	doNotReply  = "DO_NO_REPLY"
+	courier     = "COURIER_KEY"
 )
