@@ -12,6 +12,7 @@ type Config struct {
 	SecretsPath string            `json:"secretsPath"`
 	CertPath    string            `json:"certPath"`
 	CertPool    *x509.CertPool    `json:"certPool"`
+	DNREmail    string            `json:"doNotReplyEmail"`
 }
 
 // ConfigAccessor is the basic interface that configuration objects must implement

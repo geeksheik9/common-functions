@@ -36,6 +36,7 @@ func New(ca models.ConfigAccessor, envMap map[string]string) (*models.Config, er
 		Databases:   dbMap,
 		SecretsPath: envMap[secretsPath],
 		CertPath:    envMap[certPath],
+		DNREmail: envMap[doNotReply],
 	}
 
 	return config, nil
