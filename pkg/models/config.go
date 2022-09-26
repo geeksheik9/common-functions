@@ -22,4 +22,6 @@ type ConfigAccessor interface {
 	BindEnv(input ...string) error
 	IsSet(key string) bool
 	GetString(key string) string
+	SetConfigFile(file string)
+	ReadInConfig() error
 }

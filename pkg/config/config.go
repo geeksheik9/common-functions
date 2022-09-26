@@ -9,35 +9,38 @@ import (
 
 // New function creates a new Config object from the given ConfigAccessor and envMap
 // When creating new URLs and db URIs in envMap follow pattern host=<url/uri>
-func New(ca models.ConfigAccessor, envMap map[string]string) (*models.Config, error) {
-	err := loadEnvVars(ca, envMap)
+func New(ca models.ConfigAccessor, file string) (*models.Config, error) {
+	ca.SetConfigFile(file)
+	err := ca.ReadInConfig()
 	if err != nil {
-		return nil, err
+		return nil, errors.New("Error reading config from file")
 	}
 
+	urls := ca.GetString("URLs")
 	var urlArray []string
-	if _, ok := envMap[URLs]; ok {
+	if strings.Trim(urls, " ") != "" {
 		//url input should be stored in format key=value,key=value,...
-		urlArray = strings.Split(envMap[URLs], ",")
+		urlArray = strings.Split(urls, ",")
 	}
 	urlMap := makeMap(urlArray)
 
+	dbs := ca.GetString("DATABASES")
 	var dbArray []string
-	if _, ok := envMap[databases]; ok {
-		//db input should be stored in format key=value,key=value,...
-		dbArray = strings.Split(envMap[databases], ",")
+	if strings.Trim(dbs, " ") != "" {
+		//url input should be stored in format key=value,key=value,...
+		urlArray = strings.Split(dbs, ",")
 	}
 	dbMap := makeMap(dbArray)
 
 	config := &models.Config{
-		Port:        envMap[port],
-		LogLevel:    envMap[logLevel],
+		Port:        ca.GetString("PORT"),
+		LogLevel:    ca.GetString("LOG_LEVEL"),
 		URLS:        urlMap,
 		Databases:   dbMap,
-		SecretsPath: envMap[secretsPath],
-		CertPath:    envMap[certPath],
-		DNREmail:    envMap[doNotReply],
-		CourierKey:  envMap[courier],
+		SecretsPath: ca.GetString("SECRETS_PATH"),
+		CertPath:    ca.GetString("CERT_PATH"),
+		DNREmail:    ca.GetString("DO_NOT_REPLY"),
+		CourierKey:  ca.GetString("COURIER_KEY"),
 	}
 
 	return config, nil
@@ -52,22 +55,4 @@ func makeMap(array []string) map[string]string {
 		m[pair[0]] = pair[1]
 	}
 	return m
-}
-
-// loadEnvVars function loads the env vars from the given ConfigAccessor and envMap
-// helper function for New
-func loadEnvVars(ca models.ConfigAccessor, envMap map[string]string) error {
-	for key := range envMap {
-		err := ca.BindEnv(key)
-		if err != nil {
-			return errors.New("failed to bind env var " + key)
-		}
-
-		if ca.IsSet(key) {
-			envMap[key] = ca.GetString(key)
-		} else {
-			return errors.New("env var " + key + " is not set")
-		}
-	}
-	return nil
 }
