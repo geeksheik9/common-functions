@@ -13,7 +13,7 @@ func New(ca models.ConfigAccessor, file string) (*models.Config, error) {
 	ca.SetConfigFile(file)
 	err := ca.ReadInConfig()
 	if err != nil {
-		return nil, errors.New("Error reading config from file")
+		return nil, errors.New("Error reading config from file: " + err.Error())
 	}
 
 	urls := ca.GetString("URLs")
