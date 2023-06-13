@@ -28,7 +28,7 @@ func New(ca models.ConfigAccessor, file string) (*models.Config, error) {
 	var dbArray []string
 	if strings.Trim(dbs, " ") != "" {
 		//url input should be stored in format key=value,key=value,...
-		urlArray = strings.Split(dbs, ",")
+		dbArray = strings.Split(dbs, ",")
 	}
 	dbMap := makeMap(dbArray)
 

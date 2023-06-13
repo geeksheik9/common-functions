@@ -1,12 +1,12 @@
-package crud
+package database
 
 type CRUD interface {
-	InsertOne(document interface{}) int
-	InsertMany(documents []interface{}) int
-	GetOne(id string) interface{}
-	GetMany(ids []string) []interface{}
-	UpdateOne(id string, document interface{}) int
-	UpdateMany(ids []string, documents []interface{}) int
-	DeleteOne(id string) int
-	DeleteMany(ids []string) int
+	InsertOne(document interface{}) (int, error)
+	InsertMany(documents []interface{}) (int, error)
+	GetOne(id string) (interface{}, error)
+	GetMany(ids []string) ([]interface{}, error)
+	UpdateOne(id string, document interface{}) (int, error)
+	UpdateMany(ids []string, documents []interface{}) (int, error)
+	DeleteOne(id string) (int, error)
+	DeleteMany(ids []string) (int, error)
 }
