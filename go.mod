@@ -2,7 +2,10 @@ module github.com/geeksheik9/common-functions
 
 go 1.18
 
-require github.com/stretchr/testify v1.8.4
+require (
+	github.com/sirupsen/logrus v1.9.3
+	github.com/stretchr/testify v1.8.4
+)
 
 require (
 	github.com/golang/snappy v0.0.4 // indirect
@@ -15,6 +18,7 @@ require (
 	github.com/youmark/pkcs8 v0.0.0-20201027041543-1326539a0a0a // indirect
 	golang.org/x/crypto v0.17.0 // indirect
 	golang.org/x/sync v0.2.0 // indirect
+	golang.org/x/sys v0.15.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 )
 
